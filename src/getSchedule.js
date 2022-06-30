@@ -60,7 +60,6 @@ function createObj3() {
 
 const completeObj = { ...createObj(), ...createObj2(), ...createObj3() };
 const weekDays = Object.keys(completeObj);
-const daysAndAnimals = [...weekDays, ...animales];
 
 function getDaySchedule(param) {
   return {
@@ -74,7 +73,5 @@ function getSchedule(scheduleTarget) {
   if (weekDays.includes(scheduleTarget)) return getDaySchedule(scheduleTarget);
   return completeObj;
 }
-
-// console.log(daysAndAnimals);
 
 module.exports = getSchedule;
