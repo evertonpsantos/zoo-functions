@@ -2,74 +2,54 @@ const data = require('../data/zoo_data');
 
 const { species } = data;
 
+const locationsArray = ['NE', 'NW', 'SE', 'SW'];
+
 function noFilterAnimals(param) {
   return species.filter(({ location }) => location === param);
 }
 
-const animalsNE = noFilterAnimals('NE');
-const animalsNW = noFilterAnimals('NW');
-const animalsSE = noFilterAnimals('SE');
-const animalsSW = noFilterAnimals('SW');
-
 function includeNames() {
-  return {
-    NE: animalsNE.map((animal) => ({ [animal.name]: animal.residents
-      .map((element) => element.name) })),
-    NW: animalsNW.map((animal) => ({ [animal.name]: animal.residents
-      .map((element) => element.name) })),
-    SE: animalsSE.map((animal) => ({ [animal.name]: animal.residents
-      .map((element) => element.name) })),
-    SW: animalsSW.map((animal) => ({ [animal.name]: animal.residents
-      .map((element) => element.name) })),
-  };
+  const obj = {};
+  locationsArray.forEach((element) => {
+    (obj[element] = noFilterAnimals(element).map((animal) => ({ [animal.name]: animal.residents
+      .map((e) => e.name) })));
+  });
+  return obj;
 }
 
 function sorted() {
-  return {
-    NE: animalsNE.map((animal) => ({ [animal.name]: animal.residents.map((xzibit) => xzibit.name)
-      .sort() })),
-    NW: animalsNW.map((animal) => ({ [animal.name]: animal.residents.map((xzibit) => xzibit.name)
-      .sort() })),
-    SE: animalsSE.map((animal) => ({ [animal.name]: animal.residents.map((xzibit) => xzibit.name)
-      .sort() })),
-    SW: animalsSW.map((animal) => ({ [animal.name]: animal.residents.map((xzibit) => xzibit.name)
-      .sort() })),
-  };
+  const obj = {};
+  locationsArray.forEach((element) => {
+    (obj[element] = noFilterAnimals(element).map((animal) => ({ [animal.name]: animal.residents
+      .map((e) => e.name).sort() })));
+  });
+  return obj;
 }
 
 function bySex(options) {
-  return {
-    NE: animalsNE.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name) })),
-    NW: animalsNW.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name) })),
-    SE: animalsSE.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name) })),
-    SW: animalsSW.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name) })),
-  };
+  const obj = {};
+  locationsArray.forEach((element) => {
+    (obj[element] = noFilterAnimals(element).map((animal) => ({ [animal.name]: animal.residents
+      .filter((xzibit) => xzibit.sex === options.sex).map((e) => e.name) })));
+  });
+  return obj;
 }
 
 function bySexSorted(options) {
-  return {
-    NE: animalsNE.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name).sort() })),
-    NW: animalsNW.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name).sort() })),
-    SE: animalsSE.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name).sort() })),
-    SW: animalsSW.map((animal) => ({ [animal.name]: animal.residents
-      .filter((xzibit) => xzibit.sex === options.sex).map((element) => element.name).sort() })),
-  };
+  const obj = {};
+  locationsArray.forEach((element) => {
+    (obj[element] = noFilterAnimals(element).map((animal) => ({ [animal.name]: animal.residents
+      .filter((xzibit) => xzibit.sex === options.sex).map((e) => e.name).sort() })));
+  });
+  return obj;
 }
 
 function noFilter() {
-  return {
-    NE: animalsNE.map((element) => element.name),
-    NW: animalsNW.map((element) => element.name),
-    SE: animalsSE.map((element) => element.name),
-    SW: animalsSW.map((element) => element.name),
-  };
+  const obj = {};
+  locationsArray.forEach((element) => {
+    (obj[element] = noFilterAnimals(element).map((e) => e.name));
+  });
+  return obj;
 }
 
 function aux(param) {
